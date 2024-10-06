@@ -1,0 +1,80 @@
+FUNCTION isLeapYear(year: INTEGER): BOOLEAN;
+BEGIN
+    IF (year MOD 4 = 0) AND (year MOD 100 <> 0) OR (year MOD 400 = 0) THEN
+        RETURN TRUE
+    ELSE
+        RETURN FALSE
+END
+
+FUNCTION ticketPrice(age: INTEGER): INTEGER;
+BEGIN
+    IF (age <= 12) THEN
+        RETURN 10
+    ELSE IF (age >= 13) AND (age <= 17) THEN
+        RETURN 15
+    ELSE
+        RETURN 20
+END
+
+FUNCTION fibonacci(n: INTEGER): INTEGER;
+BEGIN
+    IF (n = 0) THEN
+        RETURN 0
+    ELSE IF (n = 1) THEN
+        RETURN 1
+    ELSE
+        RETURN fibonacci(n - 1) + fibonacci(n - 2)
+END
+
+FUNCTION isPalindrome(s: STRING; left: INTEGER; right: INTEGER): BOOLEAN;
+BEGIN
+    IF (left >= right) THEN
+        RETURN TRUE
+    ELSE IF (s[left] <> s[right]) THEN
+        RETURN FALSE
+    ELSE
+        RETURN isPalindrome(s, left + 1, right - 1)
+END
+
+FUNCTION checkPalindrome(s: STRING): BOOLEAN;
+BEGIN
+    RETURN isPalindrome(s, 1, LENGTH(s))
+END
+
+ALGORITHM Main
+VAR
+    year, age, n: INTEGER;
+    moviePrice: INTEGER;
+    isLeap: BOOLEAN;
+    testString: STRING;
+    palindromeResult: BOOLEAN;
+BEGIN
+    // Vérification de l'année bissextile
+    WRITE("Entrez une année: ");
+    READ(year);
+    isLeap := isLeapYear(year);
+    IF isLeap THEN
+        WRITE(year, " est une année bissextile.")
+    ELSE
+        WRITE(year, " n'est pas une année bissextile.");
+    
+    // Calcul du prix du billet
+    WRITE("Entrez votre âge: ");
+    READ(age);
+    moviePrice := ticketPrice(age);
+    WRITE("Le prix du billet est: $", moviePrice);
+    
+    // Calcul du nième nombre de Fibonacci
+    WRITE("Entrez un nombre pour le Fibonacci: ");
+    READ(n);
+    WRITE("Le ", n, "ème nombre de Fibonacci est: ", fibonacci(n));
+    
+    // Vérification du palindrome
+    WRITE("Entrez une chaîne à vérifier: ");
+    READ(testString);
+    palindromeResult := checkPalindrome(testString);
+    IF palindromeResult THEN
+        WRITE(testString, " est un palindrome.")
+    ELSE
+        WRITE(testString, " n'est pas un palindrome.")
+END
